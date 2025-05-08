@@ -25,7 +25,7 @@ if os.path.exists('env.py'):
 SECRET_KEY = os.environ.get('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = 'DEVELOPMENT' in os.environ
+DEBUG = True
 
 ALLOWED_HOSTS = ['.herokuapp.com', '127.0.0.1']
 
@@ -40,7 +40,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
 
-    ## My Apps
+    # My Apps
     'comments',
     'handcrafts',
     'users',
