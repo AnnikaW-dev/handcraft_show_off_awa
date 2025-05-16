@@ -44,7 +44,6 @@ INSTALLED_APPS = [
     'allauth.account',
     'django.contrib.sites',
 
-
     # My Apps
     'comments',
     'handcrafts',
@@ -54,6 +53,8 @@ INSTALLED_APPS = [
     # Other
     'crispy_forms',
     'crispy_bootstrap5',
+    'cloudinary',
+    'cloudinary_storage',
 ]
 
 SITE_ID = 1
