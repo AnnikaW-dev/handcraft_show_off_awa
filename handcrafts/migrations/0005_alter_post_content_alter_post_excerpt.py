@@ -7,18 +7,18 @@ from django.db import migrations
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('handcrafts', '0004_alter_post_content_alter_post_excerpt'),
+        ("handcrafts", "0004_alter_post_content_alter_post_excerpt"),
     ]
 
     operations = [
         migrations.AlterField(
-            model_name='post',
-            name='content',
+            model_name="post",
+            name="content",
             field=ckeditor.fields.RichTextField(),
         ),
         migrations.AlterField(
-            model_name='post',
-            name='excerpt',
+            model_name="post",
+            name="excerpt",
             field=ckeditor.fields.RichTextField(blank=True),
         ),
     ]

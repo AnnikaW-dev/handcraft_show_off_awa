@@ -6,13 +6,23 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('handcrafts', '0002_post_image'),
+        ("handcrafts", "0002_post_image"),
     ]
 
     operations = [
         migrations.AddField(
-            model_name='post',
-            name='handcraft_type',
-            field=models.CharField(choices=[('knitting', 'Knitting'), ('crochet', 'Crochet'), ('sewing', 'sewing'), ('embroodery', 'Embroidery'), ('other', 'Other')], default='knitting', max_length=50),
+            model_name="post",
+            name="handcraft_type",
+            field=models.CharField(
+                choices=[
+                    ("knitting", "Knitting"),
+                    ("crochet", "Crochet"),
+                    ("sewing", "sewing"),
+                    ("embroodery", "Embroidery"),
+                    ("other", "Other"),
+                ],
+                default="knitting",
+                max_length=50,
+            ),
         ),
     ]

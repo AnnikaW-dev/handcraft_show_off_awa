@@ -60,7 +60,7 @@ header {
 }
 
 .navbar {
-  background-color: var(--light-red);
+  background-color: var(--sunset);
   box-shadow: var(--small-box-shadow);
 }
 
@@ -82,4 +82,68 @@ a.nav-lik {
   margin: 3% auto;
   box-shadow: var(--small-box-shadow);
   border-radius: 5px;
+}
+
+/* Handcrafts */
+.card {
+  height: 90%;
+  margin-top: 1rem;
+}
+
+.handcrafts {
+  text-decoration: none;
+  color: var(--black);
+}
+
+.handcrafts:hover {
+  cursor: pionter;
+}
+
+.handcraft-info {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.handcraft-container {
+  display: flex;
+  flex-direction: column;
+}
+
+.handcraft-content {
+  width: 100%;
+}
+
+.post-img {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.handcraft-pic {
+  width: 100%;
+  height: auto;
+}
+
+
+@media screen and (min-width: 770px) {
+  .handcraft-info {
+    flex-direction: row;
+    border: 1px solid var(--black);
+  }
+  .handcraft-img {
+    width: 40%;
+    margin: 0 auto;
+  }
+
+  .handcraft-detail {
+    width: 60%;
+    padding: 2rem;
+  }
+
+  .handcraft-container {
+    flex-direction: row;
+  }
+
+
 }

@@ -16,7 +16,10 @@
                 <a class="nav-link {% if url_name == 'home' %}active{% endif %}" aria-current="page" href="{% url 'home' %}">Home</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" href="#">Handcrafts</a>
+                <a class="nav-link {% if url_name == 'handcrafts' %}active{% endif %}" href="{% url 'handcrafts' %}">Handcrafts</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link {% if url_name == 'add_handcraft' %}active{% endif %}" href="{% url 'add_handcraft' %}">New</a>
               </li>
               {% if request.user.is_authenticated %}
               <li class="nav-item">
@@ -35,7 +38,7 @@
             <!--Form for Seach -->
             <form class="d-flex" role="search">
                 <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-                <button class="btn btn-outline-success" type="submit">Search</button>
+                <button class="btn btn-info" type="submit">Search</button>
               </form>
           </div>
         </div>

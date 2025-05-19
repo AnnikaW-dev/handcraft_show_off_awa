@@ -25,7 +25,7 @@ urlpatterns = [
     path('accounts/', include('allauth.urls')),
     path('', include('home.urls')),
     path("ckeditor/", include("ckeditor_uploader.urls")),
-
+    path('handcrafts/', include('handcrafts.urls'))
 ]
 
 if settings.DEBUG:

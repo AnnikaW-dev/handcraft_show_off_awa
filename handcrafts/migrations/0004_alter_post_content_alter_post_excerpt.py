@@ -7,18 +7,18 @@ from django.db import migrations
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('handcrafts', '0003_post_handcraft_type'),
+        ("handcrafts", "0003_post_handcraft_type"),
     ]
 
     operations = [
         migrations.AlterField(
-            model_name='post',
-            name='content',
+            model_name="post",
+            name="content",
             field=django_summernote.fields.SummernoteTextField(),
         ),
         migrations.AlterField(
-            model_name='post',
-            name='excerpt',
+            model_name="post",
+            name="excerpt",
             field=django_summernote.fields.SummernoteTextField(blank=True),
         ),
     ]

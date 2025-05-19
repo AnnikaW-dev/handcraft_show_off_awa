@@ -1,0 +1,34 @@
+{% extends "base.html" %}
+
+{% block title %}Handcraft Detail - {{ handcraft.title }}{% endblock %}
+
+{% block content %}
+    <div class="container">
+        <div class="handcraft-info mt-3 p-1">
+            <div class="handcraft-img">
+                <img src="{{ handcraft.image.url }}" alt="{{ handcraft.image_alt }}" class="handcraft-pic">
+            </div>
+            <div class="handcraft-detail">
+                <h1 class="text-center p-3">{{ handcraft.title }}</h1>
+                <p class="text-center p-3"><strong>Posted by:</strong> {{ handcraft.author }} <br> <strong>On:</strong> {{ handcraft.created_on }}</p>
+                <hr>
+                <p class="p-3"><strong>Handcraft type:</strong> {{ handcraft.handcraft_type|title}}</p>
+                <hr>
+                {% if request.user == handcraft.author %}
+                    <div class="text-center mt-3 p-3">
+                        <a href="" class="btn btn-primary m-3 w-25">Edit</a>
+                        <a href="" class="btn btn-primary m-3 w-25">Delete</a>
+                    </div>
+                {% endif %}
+            </div>
+
+
+        </div>
+        <div class="handcraft-container">
+            <div class="post-content">
+                {{ handcraft.content|safe }}
+            </div>
+        </div>
+
+    </div>
+{% endblock %}
