@@ -1,8 +1,14 @@
-from django.views.generic import CreateView, ListView, DetailView
+from django.views.generic import (
+    CreateView, ListView,
+    DetailView, DeleteView
+    )
 from .models import Post
 from .forms import Handcraftform
 
-from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.auth.mixins import (
+    LoginRequiredMixin,
+    UserPassesTestMixin,
+    )
 
 # Create your views here.
 
@@ -41,3 +47,14 @@ class AddHandcraft(LoginRequiredMixin, CreateView):
     def form_valid(self, form):
         form.instance.author = self.request.user
         return super(AddHandcraft, self).form_valid(form)
+
+
+class DeleteHandcraft(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
+    """
+    Delete a Handcraft post
+    """
+    model = Post
+    success_url = '/handcrafts/'
+
+    def test_func(self):
+        return self.request.user == self.get_object().author

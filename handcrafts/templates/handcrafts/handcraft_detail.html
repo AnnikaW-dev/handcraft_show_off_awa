@@ -17,7 +17,7 @@
                 {% if request.user == handcraft.author %}
                     <div class="text-center mt-3 p-3">
                         <a href="" class="btn btn-primary m-3 w-25">Edit</a>
-                        <a href="" class="btn btn-primary m-3 w-25">Delete</a>
+                        <a href="{% url 'delete_handcraft' handcraft.slug %}" class="btn btn-primary m-3 w-25">Delete</a>
                     </div>
                 {% endif %}
             </div>
