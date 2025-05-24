@@ -3,15 +3,15 @@ from django.views.generic import (
     DetailView, DeleteView,
     UpdateView
     )
-from .models import Post
-from .forms import Handcraftform
-
 from django.contrib.auth.mixins import (
     LoginRequiredMixin,
     UserPassesTestMixin,
     )
+from django.shortcuts import redirect
+from django.contrib import messages
 
-# Create your views here.
+from .models import Post, Comment
+from .forms import Handcraftform, CommentForm
 
 
 class Handcrafts(ListView):
@@ -29,11 +29,37 @@ class Handcrafts(ListView):
 class HandcraftDetail(DetailView):
 
     """
-    View a singel Post
+    View a single Post
     """
     template_name = 'handcrafts/handcraft_detail.html'
     model = Post
     context_object_name = 'handcraft'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        handcraft = self.get_object()
+        comments = Comment.objects.filter(
+            post=handcraft, approved=True).order_by('created_on')
+        context['comments'] = comments
+        context['comment_form'] = CommentForm()
+        return context
+
+    def post(self, request, *args, **kwargs):
+        self.object = self.get_object()
+        comment_form = CommentForm(request.POST)
+
+        if comment_form.is_valid():
+            comment = comment_form.save(commit=False)
+            comment.post = self.object
+            comment.author = request.user
+            comment.save()
+            messages.success(request, 'Your comment has been submitted and awaiting approval') # noqa
+            return redirect('handcraft_detail', slug=self.object.slug)
+
+        # If form is not valid, re-render the page with form errors
+        context = self.get_context_data(**kwargs)
+        context['comment_form'] = comment_form
+        return self.render_to_response(context)
 
 
 class AddHandcraft(LoginRequiredMixin, CreateView):

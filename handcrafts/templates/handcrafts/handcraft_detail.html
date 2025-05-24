@@ -1,34 +1,73 @@
-{% extends "base.html" %}
-
-{% block title %}Handcraft Detail - {{ handcraft.title }}{% endblock %}
-
-{% block content %}
-    <div class="container">
-        <div class="handcraft-info mt-3 p-1">
-            <div class="handcraft-img">
-                <img src="{{ handcraft.image.url }}" alt="{{ handcraft.image_alt }}" class="handcraft-pic">
+{% extends "base.html" %} {% block title %}Handcraft Detail - {{ handcraft.title
+}}{% endblock %} {% block content %}
+<div class="container">
+  <div class="handcraft-info mt-3 p-1">
+    <div class="handcraft-img">
+      <img
+        src="{{ handcraft.image.url }}"
+        alt="{{ handcraft.image_alt }}"
+        class="handcraft-pic"
+      />
+    </div>
+    <div class="handcraft-detail">
+      <h1 class="text-center p-3">{{ handcraft.title }}</h1>
+      <p class="text-center p-3">
+        <strong>Posted by:</strong> {{ handcraft.author }} <br />
+        <strong>On:</strong> {{ handcraft.created_on }}
+      </p>
+      <hr />
+      <p class="p-3">
+        <strong>Handcraft type:</strong> {{ handcraft.handcraft_type|title}}
+      </p>
+      <hr />
+      {% if request.user == handcraft.author %}
+      <div class="text-center mt-3 p-3">
+        <a
+          href="{% url 'edit_handcraft' handcraft.slug %}"
+          class="btn btn-primary m-3 w-25"
+          >Edit</a
+        >
+        <a
+          href="{% url 'delete_handcraft' handcraft.slug %}"
+          class="btn btn-primary m-3 w-25"
+          >Delete</a
+        >
+      </div>
+      {% endif %}
+    </div>
+    <div class="handcraft-container">
+      <div class="post-content">{{ handcraft.content|safe }}</div>
+    </div>
+  </div>
+  <!-- Comment section -->
+    <div class=" container comment-section">
+        <div class="row">
+            <div class="col col-md-6">
+                <h2>Comments</h2>
+                {% if comments %} {% for comment in comments %}
+                <div class="comment">
+                    <p class="comment-author">
+                    {{ comment.author }} - {{ comment.created_on }}
+                    </p>
+                    <p class="comment-body">{{ comment.body }}</p>
+                </div>
+                    {% endfor %} {% else %}
+                    <p>No comments yet. Be the first to comment!</p>
+                    {% endif %}
             </div>
-            <div class="handcraft-detail">
-                <h1 class="text-center p-3">{{ handcraft.title }}</h1>
-                <p class="text-center p-3"><strong>Posted by:</strong> {{ handcraft.author }} <br> <strong>On:</strong> {{ handcraft.created_on }}</p>
-                <hr>
-                <p class="p-3"><strong>Handcraft type:</strong> {{ handcraft.handcraft_type|title}}</p>
-                <hr>
-                {% if request.user == handcraft.author %}
-                    <div class="text-center mt-3 p-3">
-                        <a href="{% url 'edit_handcraft' handcraft.slug %}" class="btn btn-primary m-3 w-25">Edit</a>
-                        <a href="{% url 'delete_handcraft' handcraft.slug %}" class="btn btn-primary m-3 w-25">Delete</a>
-                    </div>
+            <div class="col col-md-6">
+                {% if user.is_authenticated %}
+                <h2>Add a comment</h2>
+                <form method="POST">
+                    {% csrf_token %}
+                    {{ comment_form|crispy }}
+                    <button type="submit" class="btn btn-primary mt-2">Submit Comment</button>
+                </form>
+                {% else %}
+                <p>Please <a href="{% url 'account-login' %}">login</a> to add a comment. </p>
                 {% endif %}
             </div>
-
-
         </div>
-        <div class="handcraft-container">
-            <div class="post-content">
-                {{ handcraft.content|safe }}
-            </div>
-        </div>
-
     </div>
+</div>
 {% endblock %}

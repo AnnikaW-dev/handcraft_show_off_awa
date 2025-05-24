@@ -17,5 +17,13 @@ class PostAdmin(admin.ModelAdmin):
     summernote_fields = ("content", "excerpt")
 
 
-# Register your models here.
-admin.site.register(Comment)
+@admin.register(Comment)
+class CommentAdmin(admin.ModelAdmin):
+    list_display = ('author', 'body', 'created_on', 'approved', 'post')
+    lis_filter = ('approved', 'created_on')
+    search_fields = ('author_username', 'body')
+    actions = ['approve_comments']
+
+    def approve_comments(self, request, queryset):
+        queryset.update(approved=True)
+        self.message_user(request, 'Comments approved')
