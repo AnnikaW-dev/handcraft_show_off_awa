@@ -9,14 +9,20 @@
     {% for handcraft in handcrafts %}
     <a href="{% url 'handcraft_detail' handcraft.slug %}" class="handcrafts" aria-label="Click to view {{handcraft.title}}">
         <div class="card m-3" style="width: 18rem;">
-            {% if handcraft.image %}
-            <img src="{{ handcraft.image.url }}" class="card-img-top" alt="{{ handcraft.image_alt }}">
+
+            {% if handcraft.get_thumbnail_url %}
+            <img src="{{ handcraft.get_thumbnail_url }}" class="card-img-top handcraft-thumbnail" alt="{% if handcraft.image_alt %}{{ handcraft.image_alt }}{% else %}Handcraft image{% endif %}">
+
+            {% elif handcraft.image and handcraft.image != "placeholder" %}
+                <img src="{{ handcraft.image.url }}"  class="card-img-top handcraft-thumbnail" alt="{% if handcraft.image_alt %}{{ handcraft.image_alt }}{% else %}Handcraft image{% endif %}">
+
             {% else %}
             <p>Ingen bild tillgänglig</p>
+
             {% endif %}
             <div class="card-body">
                 <h2 class="card-title">{{ handcraft.title|safe }}</h2>
-                <p class="card-text">{{handcraft.excerpt|safe }}</p>
+                <p class="card-text">{{ handcraft.excerpt|safe }}</p>
 
             </div>
         </div>

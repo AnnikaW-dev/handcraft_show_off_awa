@@ -53,7 +53,6 @@ footer {
   margin: 1rem;
 }
 
-
 /* Header */
 header {
   background-color: aqua;
@@ -84,21 +83,78 @@ a.nav-lik {
   border-radius: 5px;
 }
 
-/* Handcrafts */
+/* Handcrafts List view */
 .card {
-  height: 90%;
+  height: 450;
   margin-top: 1rem;
+  transition: transform 0.3s ease, boxs-hadow 0.3s ease;
+  display: flex;
+  flex-direction: column;
 }
 
+.card-body {
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  padding: 1rem;
+}
+
+.card-title {
+  font-size: 1.25rem;
+  margin-bottom: 0.5rem;
+  line-height: 1.2;
+}
+
+.card-text {
+  flex-grow: 1;
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  font-size: 0.9rem;
+}
 .handcrafts {
   text-decoration: none;
   color: var(--black);
 }
 
 .handcrafts:hover {
-  cursor: pionter;
+  cursor: pointer;
+  text-decoration: none;
+  color: var(--black);
 }
 
+.handcrafts:hover .card {
+  transform: translateY(-5px);
+  box-shadow: 2px 8px 15px 0 #00000040;
+}
+
+/* Thumbnail styling for list view - fixed dimentions */
+.handcraft-thumbnail {
+  width: 100%;
+  height: 250px;
+  object-fit: cover;
+  border-radius: 5px 5px 0 0;
+}
+
+.card-img-placeholder, .no-image-placeholder {
+  width: 100%;
+  height: 250px;
+  background-color: var(--floral-white);
+  border: var(--border);
+  border-radius: 5px 5px 0 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.card-img-placeholder p, .no-image-placeholder p {
+  color: var(--black);
+  opacity: 0.6;
+  margin: 0;
+}
+
+/* Handcraft Detail View */
 .handcraft-info {
   display: flex;
   flex-direction: column;
@@ -118,32 +174,40 @@ a.nav-lik {
   display: flex;
   justify-content: center;
   align-items: center;
+  margin-bottom: 2rem;
 }
 
 .handcraft-pic {
   width: 100%;
+  max-width: 600px;
   height: auto;
+  max-height: 500px;
+  object-fit: contain;
+  border-radius: 5px;
+
+  display: block;
+  margin: 0 auto;
 }
 
-
+/* Responsive Adjustments */
 @media screen and (min-width: 770px) {
-  .handcraft-info {
-    flex-direction: row;
-    border: 1px solid var(--black);
-  }
-  .handcraft-img {
-    width: 40%;
-    margin: 0 auto;
+  .card {
+    height: 480px; /* Slightly taller on larger screens */
   }
 
-  .handcraft-detail {
-    width: 60%;
-    padding: 2rem;
+  .handcraft-thumbnail {
+    height: 280px;
   }
 
-  .handcraft-container {
-    flex-direction: row;
+  .card-img-placeholder, .no-image-placeholder {
+    height: 280px;
   }
 
+}
 
+/* Additional responsive breakpoints */
+@media screen an (min-width: 1200px) {
+.handcraft-thumbnail {
+  height: 350px;
+  }
 }
