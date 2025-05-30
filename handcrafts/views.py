@@ -1,3 +1,4 @@
+from django.shortcuts import get_object_or_404, render
 from django.views.generic import (
     CreateView, ListView,
     DetailView, DeleteView,
@@ -9,6 +10,8 @@ from django.contrib.auth.mixins import (
     )
 from django.shortcuts import redirect
 from django.contrib import messages
+from django.contrib.auth.decorators import login_required
+from django.utils.decorators import method_decorator
 
 from .models import Post, Comment
 from .forms import Handcraftform, CommentForm
@@ -16,7 +19,7 @@ from .forms import Handcraftform, CommentForm
 
 class Handcrafts(ListView):
     """
-    View all recipes
+    View all handcrafts
     """
     template_name = 'handcrafts/handcrafts.html'
     model = Post
@@ -61,6 +64,33 @@ class HandcraftDetail(DetailView):
         context['comment_form'] = comment_form
         return self.render_to_response(context)
 
+@login_required
+def delete_comment(request, pk):
+    comment = get_object_or_404(Comment, pk=pk)
+    if comment.author == request.user:
+        comment.delete()
+        messages.success(request,"Comment deleted.")
+    else: messages.error(request, 'You dont have premisson to delete this comment.')
+    return redirect('handcraft_detail', slug=comment.post.slug)
+
+@login_required
+def edit_comment(request, pk):
+    comment = get_object_or_404(Comment, pk=pk)
+    if comment.author != request.user:
+        messages.success(request, "You dont have premission to edit this comment.")
+        return redirect('handcraft_detail', slug=comment.post.slug)
+
+    if request.method == "POST":
+        form = CommentForm(request.POST, instance=comment)
+        if form.is_valid():
+            form.save()
+            messages.success(request, "Comment updated")
+            return redirect('handcraft_detail', slug=comment.post.slug)
+
+    else:
+        form = CommentForm(instance=comment)
+
+    return render(request, 'handcrafts/edit_comment.html', {'form':form})
 
 class AddHandcraft(LoginRequiredMixin, CreateView):
     """
@@ -94,7 +124,7 @@ class DeleteHandcraft(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
     Delete a Handcraft post
     """
     model = Post
-    success_url = '/handcrafts'
+    success_url = '/handcrafts/'
 
     def test_func(self):
         return self.request.user == self.get_object().author

@@ -25,8 +25,7 @@
         <a
           href="{% url 'edit_handcraft' handcraft.slug %}"
           class="btn btn-primary m-3 w-25"
-          >Edit</a
-        >
+          >Edit</a>
         <a
           href="{% url 'delete_handcraft' handcraft.slug %}"
           class="btn btn-primary m-3 w-25"
@@ -50,11 +49,24 @@
                     {{ comment.author }} - {{ comment.created_on }}
                     </p>
                     <p class="comment-body">{{ comment.body }}</p>
-                </div>
-                    {% endfor %} {% else %}
-                    <p>No comments yet. Be the first to comment!</p>
+                    {% if comment.author == user %}
+                    <div class="comment-control mt-2">
+                      <form action="{% url 'edit_comment' comment.id %}" method="get" style="display:inline;">
+                        <button type="submit" class="btn btn-sm btn-secondary">Edit</button>
+                      </form>
+                      <form action="{% url 'delete_comment' comment.id %}" method="post" style="display:inline;">
+                        {% csrf_token %}
+                        <button type="submit" class="btn btn_sm btn-danger">Delete</button>
+                      </form>
+                    </div>
                     {% endif %}
+                </div>
+                {% endfor %}
+                {% else %}
+                <p>No comments yet. Be the first to comment!</p>
+                {% endif %}
             </div>
+
             <div class="col col-md-6">
                 {% if user.is_authenticated %}
                 <h2>Add a comment</h2>
@@ -64,7 +76,7 @@
                     <button type="submit" class="btn btn-primary mt-2">Submit Comment</button>
                 </form>
                 {% else %}
-                <p>Please <a href="{% url 'account-login' %}">login</a> to add a comment. </p>
+                <p>Please <a href="{% url 'account-login' %}">login</a> to add a comment.</p>
                 {% endif %}
             </div>
         </div>
