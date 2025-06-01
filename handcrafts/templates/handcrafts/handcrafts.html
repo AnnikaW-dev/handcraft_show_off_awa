@@ -1,5 +1,7 @@
 {% extends "base.html" %}
 
+{% load extras %}
+
 {% block title %}Handcrafts{% endblock %}
 
 {% block content %}
@@ -35,8 +37,11 @@
             {% endif %}
 
             <div class="card-body">
-                <h2 class="card-title">{{ handcraft.title|safe }}</h2>
-                <p class="card-text">{{ handcraft.excerpt|safe }}</p>
+                <h2 class="card-title text-center">{{ handcraft.title|safe }}</h2>
+                <p class="card-text">
+                    {{ handcraft.excerpt|clean_excerpt|safe }}
+                </p>
+                <p><strong>Handcraft type:</strong> {{ handcraft.handcraft_type|title }}</p>
             </div>
         </div>
     </a>
