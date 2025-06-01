@@ -2,7 +2,7 @@
 
 :root {
   /* Fonts */
-  --titlet: 'Tangerine', serif;
+  --title: 'Tangerine', serif;
   --main: 'Roboto', serif;
 
   /* Colours */
@@ -40,7 +40,7 @@ main {
 /* Footer */
 footer {
   flex-shrink: 0;
-  background-color: var(--sunset);
+  background-color: var(--light-red);
   display: flex;
   flex-direction: row;
   justify-content: center;
@@ -54,17 +54,15 @@ footer {
 }
 
 /* Header */
-header {
-  background-color: aqua;
-}
-
 .navbar {
-  background-color: var(--sunset);
+  background-color: var(--light-red);
   box-shadow: var(--small-box-shadow);
 }
 
-img.logo {
-  width: 18.50rem;
+.header-logo {
+  font-family: var(--title);
+  font-weight: bolder;
+  font-size: 50px;
 }
 
 a.nav-lik {

@@ -13,7 +13,7 @@ from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.utils.decorators import method_decorator
 
-from .models import Post, Comment
+from .models import Post, Comment, Favorite
 from .forms import Handcraftform, CommentForm
 
 
@@ -28,6 +28,18 @@ class Handcrafts(ListView):
     def get_queryset(self):
         return Post.objects.filter(status=1).order_by('-created_on')
 
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        if self.request.user.is_authenticated:
+            favorit_ids = Favorite.objects.filter(
+                user=self.request.user).values_list(
+                    'post_id', flat=True)
+            context['user_favorites'] = list(favorit_ids)
+        else:
+            context['user_favorites'] = []
+        return context
+
+
 
 class HandcraftDetail(DetailView):
 
@@ -41,11 +53,22 @@ class HandcraftDetail(DetailView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         handcraft = self.get_object()
+        user = self.request.user
         comments = Comment.objects.filter(
             post=handcraft, approved=True).order_by('created_on')
         context['comments'] = comments
         context['comment_form'] = CommentForm()
+
+
+        # Favoritstatus
+        if user.is_authenticated:
+            context['is_favorite'] = Favorite.objects.filter(user=user, post=handcraft).exists()
+        else:
+            context['is_favorite'] = False
+
         return context
+
+
 
     def post(self, request, *args, **kwargs):
         self.object = self.get_object()
@@ -91,6 +114,19 @@ def edit_comment(request, pk):
         form = CommentForm(instance=comment)
 
     return render(request, 'handcrafts/edit_comment.html', {'form':form})
+
+@login_required
+def toggle_favorite(request, slug):
+    post = get_object_or_404(Post, slug=slug)
+    favorite, created = Favorite.objects.get_or_create(user=request.user, post=post)
+
+    if not created:
+        favorite.delete()
+        messages.info(request, "Removed from favorites")
+    else:
+        messages.success(request, "Added to favorites")
+
+    return redirect(request.META.get('HTTP_REFERER', 'handcrafts'))
 
 class AddHandcraft(LoginRequiredMixin, CreateView):
     """

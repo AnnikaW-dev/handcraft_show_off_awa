@@ -1,29 +1,39 @@
 {% extends "base.html" %}
 
-
 {% block title %}Handcrafts{% endblock %}
 
 {% block content %}
 <h1 class="text-center">Latest Handcrafts</h1>
 <div class="container d-flex flex-row flex-wrap justify-content-center">
     {% for handcraft in handcrafts %}
-    <a href="{% url 'handcraft_detail' handcraft.slug %}" class="handcrafts" aria-label="Click to view {{handcraft.title}}">
-        <div class="card m-3" style="width: 18rem;">
-
-            {% if handcraft.get_thumbnail_url %}
-            <img src="{{ handcraft.get_thumbnail_url }}" class="card-img-top handcraft-thumbnail" alt="{% if handcraft.image_alt %}{{ handcraft.image_alt }}{% else %}Handcraft image{% endif %}">
-
+    <a href="{% url 'handcraft_detail' handcraft.slug %}" class="handcrafts"
+        aria-label="Click to view {{ handcraft.title }}">
+        <div class="card m-3" style="width: 18rem">
+            {% if user.is_authenticated %}
+            <form action="{% url 'toggle_favorite' handcraft.slug %}" method="post"
+                style="position: absolute; top: 10px; right: 10px; z-index: 10">
+                {% csrf_token %} {% if handcraft.id in user_favorites %}
+                <button type="submit" class="btn btn-link p-0" title="Remove from favorites">
+                    ❤️
+                </button>
+                {% else %}
+                <button type="submit" class="btn btn-link p-0" title="Add to favorites">
+                    🤍
+                </button>
+                {% endif %}
+            </form>
+            {% endif %} {% if handcraft.get_thumbnail_url %}
+            <img src="{{ handcraft.get_thumbnail_url }}" class="card-img-top handcraft-thumbnail"
+                alt="{{ handcraft.image_alt|default:'Handcraft image' }}" />
             {% elif handcraft.image and handcraft.image != "placeholder" %}
-                <img src="{{ handcraft.image.url }}"  class="card-img-top handcraft-thumbnail" alt="{% if handcraft.image_alt %}{{ handcraft.image_alt }}{% else %}Handcraft image{% endif %}">
-
+            <img src="{{ handcraft.image.url }}" class="card-img-top handcraft-thumbnail"
+                alt="{{ handcraft.image_alt|default:'Handcraft image' }}" />
             {% else %}
             <p>Ingen bild tillgänglig</p>
-
             {% endif %}
             <div class="card-body">
-                <h2 class="card-title">{{ handcraft.title|safe }}</h2>
+                <h2 class="card-title text-center">{{ handcraft.title|safe }}</h2>
                 <p class="card-text">{{ handcraft.excerpt|safe }}</p>
-
             </div>
         </div>
     </a>
