@@ -190,15 +190,15 @@ a.nav-lik {
 /* Responsive Adjustments */
 @media screen and (min-width: 770px) {
   .card {
-    height: 480px; /* Slightly taller on larger screens */
+    height: 580px; /* Slightly taller on larger screens */
   }
 
   .handcraft-thumbnail {
-    height: 280px;
+    height: 386px;
   }
 
   .card-img-placeholder, .no-image-placeholder {
-    height: 280px;
+    height: 386px;
   }
 
 }

@@ -2,10 +2,13 @@ from django.db import models
 from django.contrib.auth.models import User
 from django_summernote.fields import SummernoteTextField
 from django.core.files.base import ContentFile
+from django.utils.text import slugify
+
 
 from cloudinary.models import CloudinaryField
 from ckeditor.fields import RichTextField
 from PIL import Image
+
 import io
 import cloudinary.uploader
 
@@ -70,7 +73,11 @@ class Post(models.Model):
             except Exception as e:
                 print(f"Error creating thumbnail: {e}")
 
+        if not self.slug:
+            self.slug = slugify(self.title)
+
         super().save(*args, **kwargs)
+
     def get_thumbnail_url(self):
         """
         Get the thumbnail URL with Cloudinary transformations

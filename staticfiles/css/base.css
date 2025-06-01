@@ -86,8 +86,14 @@ a.nav-lik {
 
 /* Handcrafts */
 .card {
-  height: 90%;
+  height: 450px;
   margin-top: 1rem;
+}
+
+.card-img-top {
+  width: 100%;
+  height: auto;
+  object-fit: cover;
 }
 
 .handcrafts {
