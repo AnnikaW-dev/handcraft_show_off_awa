@@ -22,6 +22,16 @@
                 <a class="nav-link {% if url_name == 'add_handcraft' %}active{% endif %}" href="{% url 'add_handcraft' %}">New</a>
               </li>
               {% if request.user.is_authenticated %}
+              {% with request.user.favorites.count as fav_count %}
+                {% if fav_count > 0 %}
+                  <li class="nav-item">
+                    <a class="nav-link {% if url_name == 'favorite_list' %}active{% endif %}" href="{% url 'favorite_list' %}">
+                      ❤️ Favoriter ({{ fav_count }})
+                    </a>
+                  </li>
+                {% endif %}
+              {% endwith %}
+
               <li class="nav-item">
                 <a class="nav-link {% if url_name == 'account_logout' %}active{% endif %}" href="{% url 'account_logout' %}">Logout</a>
               </li>

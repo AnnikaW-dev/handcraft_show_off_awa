@@ -164,3 +164,12 @@ class DeleteHandcraft(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
 
     def test_func(self):
         return self.request.user == self.get_object().author
+
+
+@login_required
+def favorite_list(request):
+    favorites = Favorite.objects.filter(user=request.user).select_related('post')
+    return render(request, 'handcrafts/favorite_list.html', {
+        'favorites': favorites,
+        'user_favorites': [fav.post.id for fav in favorites],
+        })

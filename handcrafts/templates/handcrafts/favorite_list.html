@@ -1,0 +1,54 @@
+{% extends "base.html" %}
+
+{% load extras %}
+
+{% block title %}Favorites{% endblock %}
+
+{% block content %}
+<h1 class="text-center">Favorites</h1>
+<div class="container d-flex flex-row flex-wrap justify-content-center">
+    {% for favorite in favorites %}
+        {% with handcraft=favorite.post%}
+        <a href="{% url 'handcraft_detail' handcraft.slug %}" class="handcrafts" aria-label="Click to view {{ handcraft.title }}">
+            <div class="card m-3" style="width: 18rem;">
+
+                {% if user.is_authenticated %}
+                <form action="{% url 'toggle_favorite' handcraft.slug %}" method="post"style="position: absolute; top: 10px; right: 10px; z-index: 10">
+
+                    {% csrf_token %}
+
+                    {% if handcraft.id in user_favorites %}
+                    <button type="submit" class="btn btn-link p-0 fs-1" title="Remove from favorites">❤️</button>
+
+                    {% else %}
+                    <button type="submit" class="btn btn-link p-0 fs-1" title="Add to favorites">🤍</button>
+                    {% endif %}
+                </form>
+                {% endif %}
+
+                {% if handcraft.get_thumbnail_url %}
+                <img src="{{ handcraft.get_thumbnail_url }}" class="card-img-top handcraft-thumbnail" alt="{{ handcraft.title }}">
+
+                {% elif handcraft.image and handcraft.image != "placeholder" %}
+                    <img src="{{ handcraft.image.url }}"  class="card-img-top handcraft-thumbnail" alt="{{ handcraft.title }}">
+
+                {% else %}
+                <p>Ingen bild tillgänglig</p>
+
+                {% endif %}
+
+                <div class="card-body">
+                    <h2 class="card-title text-center">{{ handcraft.title|safe }}</h2>
+                    <p class="card-text">
+                        {{ handcraft.excerpt|clean_excerpt|safe }}
+                    </p>
+                    <p><strong>Handcraft type:</strong> {{ handcraft.handcraft_type|title }}</p>
+                </div>
+            </div>
+        </a>
+    {% endwith %}
+    {% empty %}
+    <p>You have no favorites yet.</p>
+    {% endfor %}
+</div>
+{% endblock %}
