@@ -23,6 +23,7 @@ html, body {
 }
 
 body {
+  background-color: var(--light-red);
   display: flex;
   flex-direction: column;
   font-family: var(--main);
@@ -35,7 +36,6 @@ h1, h2, h3, h4, h5, h6 {
 
 main {
   flex: 1 0 auto;
-  background-color: var(--floral_white);
 }
 
 /* Footer */
@@ -76,6 +76,7 @@ a.nav-lik {
 }
 
 .form {
+  background-color: var(--light-sea-green);
   width: 100%;
   margin: 3% auto;
   box-shadow: var(--small-box-shadow);
@@ -137,6 +138,10 @@ a.nav-lik {
   box-shadow: 2px 8px 15px 0 #00000040;
 }
 
+.btn-link {
+  text-decoration: none;
+}
+
 /* Thumbnail styling for list view - fixed dimentions */
 .handcraft-thumbnail {
   width: 100%;
@@ -195,6 +200,11 @@ a.nav-lik {
 
   display: block;
   margin: 0 auto;
+}
+
+/* Handcraft detail */
+.handcraft-img {
+  position: relative;
 }
 
 /* Responsive Adjustments */

@@ -5,7 +5,7 @@
 {% block title %}Handcrafts{% endblock %}
 
 {% block content %}
-<h1 class="text-center">Latest Handcrafts</h1>
+<h1 class="text-center">Handcrafts</h1>
 <div class="container d-flex flex-row flex-wrap justify-content-center">
     {% for handcraft in handcrafts %}
     <a href="{% url 'handcraft_detail' handcraft.slug %}" class="handcrafts" aria-label="Click to view {{ handcraft.title }}">
@@ -17,10 +17,10 @@
                 {% csrf_token %}
 
                 {% if handcraft.id in user_favorites %}
-                <button type="submit" class="btn btn-link p-0" title="Remove from favorites">❤️</button>
+                <button type="submit" class="btn btn-link p-0 fs-1" title="Remove from favorites">❤️</button>
 
                 {% else %}
-                <button type="submit" class="btn btn-link p-0" title="Add to favorites">🤍</button>
+                <button type="submit" class="btn btn-link p-0 fs-1" title="Add to favorites">🤍</button>
                 {% endif %}
             </form>
             {% endif %}
