@@ -9,7 +9,7 @@
 --cerulean: #227c9dff;
 --light-sea-green: #17c3b2ff;
 --sunset: #ffcb77ff;
---floral-white: #fef9efff;
+--light-pink: rgba(253, 233, 221, 0.993);
 --light-red: #fe6d73ff;
 --black: #000;
 
@@ -41,7 +41,7 @@ main {
 /* Footer */
 footer {
   flex-shrink: 0;
-  background-color: var(--light-red);
+  background-color: var(--sunset);
   display: flex;
   flex-direction: row;
   justify-content: center;
@@ -66,17 +66,17 @@ footer {
   font-size: 50px;
 }
 
-a.nav-lik {
+a.nav-link {
   color: var(--black);
 }
 
-.activ {
+.active {
   border-bottom: 2px solid var(--cerulean);
   font-weight: 600;
 }
 
-.form {
-  background-color: var(--light-sea-green);
+.my-form {
+  background-color: var(--light-pink);
   width: 100%;
   margin: 3% auto;
   box-shadow: var(--small-box-shadow);
@@ -202,6 +202,29 @@ a.nav-lik {
   margin: 0 auto;
 }
 
+/* Filter bar*/
+.filter-bar {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 10px;
+  padding: 1rem;
+  background-color: var(--sunset);
+  border-radius: 10px;
+  margin: 0 auto 20px auto;
+  max-width: 600px;
+  text-align: center;
+}
+
+.filter-bar select,
+.filter-bar button {
+  padding: 5px 10px;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+  font-size: 14px;
+}
+
+
 /* Handcraft detail */
 .handcraft-img {
   position: relative;
@@ -224,7 +247,7 @@ a.nav-lik {
 }
 
 /* Additional responsive breakpoints */
-@media screen an (min-width: 1200px) {
+@media screen and (min-width: 1200px) {
 .handcraft-thumbnail {
   height: 350px;
   }

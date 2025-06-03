@@ -12,8 +12,9 @@ from django.shortcuts import redirect
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.utils.decorators import method_decorator
+from django.db.models import Count
 
-from .models import Post, Comment, Favorite
+from .models import Post, Comment, Favorite, HANDCRAFT_TYPES
 from .forms import Handcraftform, CommentForm
 
 
@@ -25,11 +26,33 @@ class Handcrafts(ListView):
     model = Post
     context_object_name = 'handcrafts'
 
+
     def get_queryset(self):
-        return Post.objects.filter(status=1).order_by('-created_on')
+        queryset = Post.objects.filter(status=1)
+
+        # Category filter
+        category = self.request.GET.get('category')
+        if category:
+            queryset = queryset.filter(handcraft_type=category)
+
+        # Sorting
+        sort = self.request.GET.get('sort', 'created_on')
+        direction = self.request.GET.get('direction', 'desc')
+
+        # Whiteliist fields allowed for sorting
+        valid_sort_fields = ['title', 'created_on']
+        if sort not in valid_sort_fields:
+            sort = 'created_on'
+
+        if direction == 'desc':
+            sort =f'-{sort}'
+
+        return queryset.order_by(sort)
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
+
+        # Favorites
         if self.request.user.is_authenticated:
             favorit_ids = Favorite.objects.filter(
                 user=self.request.user).values_list(
@@ -37,9 +60,17 @@ class Handcrafts(ListView):
             context['user_favorites'] = list(favorit_ids)
         else:
             context['user_favorites'] = []
+
+        # Pass current filters
+
+        context['current_category'] = self.request.GET.get('category', '')
+        context['current_sort'] = self.request.GET.get('sort', 'created_on')
+        context['current_direction'] = self.request.GET.get('direction', 'desc')
+
+        # Category counted for sidebar /filter
+        context['handcraft_types'] = HANDCRAFT_TYPES
+
         return context
-
-
 
 class HandcraftDetail(DetailView):
 
@@ -87,6 +118,45 @@ class HandcraftDetail(DetailView):
         context['comment_form'] = comment_form
         return self.render_to_response(context)
 
+
+
+class AddHandcraft(LoginRequiredMixin, CreateView):
+    """
+    Add handcraft view
+    """
+    template_name = 'handcrafts/add_handcraft.html'
+    model = Post
+    form_class = Handcraftform
+    success_url = '/handcrafts/'
+
+    def form_valid(self, form):
+        form.instance.author = self.request.user
+        return super(AddHandcraft, self).form_valid(form)
+
+
+class EditHandcraft(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
+    """
+    Edit a Handcraft post
+    """
+    model = Post
+    template_name = 'handcrafts/edit_handcraft.html'
+    form_class = Handcraftform
+    success_url = '/handcrafts/'
+
+    def test_func(self):
+        return self.request.user == self.get_object().author
+
+
+class DeleteHandcraft(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
+    """
+    Delete a Handcraft post
+    """
+    model = Post
+    success_url = '/handcrafts/'
+
+    def test_func(self):
+        return self.request.user == self.get_object().author
+
 @login_required
 def delete_comment(request, pk):
     comment = get_object_or_404(Comment, pk=pk)
@@ -127,44 +197,6 @@ def toggle_favorite(request, slug):
         messages.success(request, "Added to favorites")
 
     return redirect(request.META.get('HTTP_REFERER', 'handcrafts'))
-
-class AddHandcraft(LoginRequiredMixin, CreateView):
-    """
-    Add handcraft view
-    """
-    template_name = 'handcrafts/add_handcraft.html'
-    model = Post
-    form_class = Handcraftform
-    success_url = '/handcrafts/'
-
-    def form_valid(self, form):
-        form.instance.author = self.request.user
-        return super(AddHandcraft, self).form_valid(form)
-
-
-class EditHandcraft(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
-    """
-    Edit a Handcraft post
-    """
-    model = Post
-    template_name = 'handcrafts/edit_handcraft.html'
-    form_class = Handcraftform
-    success_url = '/handcrafts/'
-
-    def test_func(self):
-        return self.request.user == self.get_object().author
-
-
-class DeleteHandcraft(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
-    """
-    Delete a Handcraft post
-    """
-    model = Post
-    success_url = '/handcrafts/'
-
-    def test_func(self):
-        return self.request.user == self.get_object().author
-
 
 @login_required
 def favorite_list(request):

@@ -6,7 +6,35 @@
 
 {% block content %}
 <h1 class="text-center">Handcrafts</h1>
+<!-- Filter and sort Form -->
+     <div class="filter-bar row justify-content-center">
+        <form method="get">
+            <label for="category">Category</label>
+            <select name="category" id="category" onchnage="this.formsubmit()">
+                <option value="">All</option>
+                {% for key, label in handcraft_types %}
+                <option value="{{ key}}"{% if current_category == key %}selected{% endif %}>
+                    {{ label }}
+                </option>
+                {% endfor %}
+            </select>
+
+            <label for="sort">Sort by:</label>
+            <select name="sort" id="soert">
+                <option value="created_on"{% if current_sort == 'created_on' %}selected{% endif %}>Newest</option>
+                <option value="title"{% if current_sort == 'title' %}selected{% endif %}>Title</option>
+            </select>
+
+            <select name="direction">
+                <option value="desc" {% if current_direction == 'desc' %}selected{% endif %}>Decreasing</option>
+                <option value="asc" {% if current_direction == 'asc' %}selected{% endif %}>Increasing</option>
+            </select>
+            <button type="submit">Apply</button>
+        </form>
+    </div>
 <div class="container d-flex flex-row flex-wrap justify-content-center">
+
+
     {% for handcraft in handcrafts %}
     <a href="{% url 'handcraft_detail' handcraft.slug %}" class="handcrafts" aria-label="Click to view {{ handcraft.title }}">
         <div class="card m-3" style="width: 18rem;">
