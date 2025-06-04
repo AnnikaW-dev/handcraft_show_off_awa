@@ -83,6 +83,40 @@ a.nav-link {
   border-radius: 5px;
 }
 
+.oval-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 1rem 0;
+  padding: 1rem;
+  background-image: url("/static/images/handcraft-bg.png");
+  background-size: contain;
+  background-position: center;
+  background-repeat:repeat;
+  min-height: 400px;
+  position: relative;
+}
+
+.oval-box {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: var(--light-pink);
+  width: 80%;
+  padding: 2rem 3rem;
+  border-radius: 50%;
+  box-shadow: var(--small-box-shadow);
+  text-align: center;
+  max-width: 900px;
+}
+
+.titel {
+  font-size: clamp(1.2rem, 4vw, 1.8rem);
+  margin-bottom: 0.5rem;
+  word-break: break-word;
+  text-wrap: balance;
+  margin-top: 1.5rem;
+}
 /* Handcrafts List view */
 .card {
   height: 500;
