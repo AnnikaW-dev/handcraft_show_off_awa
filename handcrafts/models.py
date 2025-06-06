@@ -128,7 +128,7 @@ class Comment(models.Model):
 class Favorite(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='favorites')
     post = models.ForeignKey(Post, on_delete=models.CASCADE, related_name='favorited_by')
-    create_on = models.DateTimeField(auto_now_add=True)
+    created_on = models.DateTimeField(auto_now_add=True)
 
     class Meta:
         unique_together = ('user', 'post')

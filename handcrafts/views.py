@@ -72,7 +72,7 @@ class Handcrafts(ListView):
 
         return context
 
-class HandcraftDetail(DetailView):
+class HandcraftDetail(LoginRequiredMixin, DetailView):
 
     """
     View a single Post
@@ -80,6 +80,8 @@ class HandcraftDetail(DetailView):
     template_name = 'handcrafts/handcraft_detail.html'
     model = Post
     context_object_name = 'handcraft'
+    login_url = '/accounts/login/'
+    recirect_field_name = 'next'
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
