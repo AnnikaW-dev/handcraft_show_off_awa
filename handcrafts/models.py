@@ -1,17 +1,12 @@
 from django.db import models
 from django.contrib.auth.models import User
-from django_summernote.fields import SummernoteTextField
-from django.core.files.base import ContentFile
 from django.utils.text import slugify
 
 
 from cloudinary.models import CloudinaryField
 from ckeditor.fields import RichTextField
-from PIL import Image
 
-import io
 import cloudinary.uploader
-
 
 
 STATUS = ((0, "Draft"), (1, "Published"))
@@ -60,7 +55,9 @@ class Post(models.Model):
                 image_url = self.image.url
                 # Create thumbnail using Cloudinary's transformation
                 # This creates a 286x386 thumbnail with smart cropping
-                thumbnail_url = cloudinary.CloudinaryImage(str(self.image)).build_url(
+                thumbnail_url = cloudinary.CloudinaryImage(
+                    str(self.image)
+                    ).build_url(
                     width=286,
                     height=382,
                     crop="fill",  # This maintans the ratio and corp if needed
@@ -85,10 +82,10 @@ class Post(models.Model):
         if self.image and str(self.image) != "placeholder":
             return cloudinary.CloudinaryImage(str(self.image)).build_url(
                 width=286,
-                    height=382,
-                    crop="fill",
-                    quality="auto",
-                    fetch_format="auto"
+                height=382,
+                crop="fill",
+                quality="auto",
+                fetch_format="auto"
             )
         return None
 
@@ -97,8 +94,10 @@ class Post(models.Model):
         Get the full-size image URL for detail view
         """
         if self.image and str(self.image) != "placeholder":
-            return cloudinary.CloudinaryImage(str(self.image)).build_url(
-                width=800, #Max width for detail
+            return cloudinary.CloudinaryImage(
+                str(self.image)
+                ).build_url(
+                width=800,
                 quality="auto",
                 fetch_format="auto"
             )
@@ -125,9 +124,12 @@ class Comment(models.Model):
     def __str__(self):
         return f"Comment {self.body} by {self.author}"
 
+
 class Favorite(models.Model):
-    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='favorites')
-    post = models.ForeignKey(Post, on_delete=models.CASCADE, related_name='favorited_by')
+    user = models.ForeignKey(
+        User, on_delete=models.CASCADE, related_name='favorites')
+    post = models.ForeignKey(
+        Post, on_delete=models.CASCADE, related_name='favorited_by')
     created_on = models.DateTimeField(auto_now_add=True)
 
     class Meta:
