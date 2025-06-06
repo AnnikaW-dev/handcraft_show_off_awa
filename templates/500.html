@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+
+{% block title %}500 - a bit of a tangle has occured!{% endblock %}
+
+{% block content %}
+<div class="text-center error-pages">
+    <div class="oval-box">
+        <h1>500 - a bit of a tangle has occured!</h1>
+        <p>
+            Oops! There has been a bit of a tangle among all the threads and yarns. We are in the process of untangling this, please try again later.</p>
+        <a href="{% url 'home' %}" class=" btn btn-primary w-25">Home</a>
+    </div>
+</div>
+{% endblock%}
