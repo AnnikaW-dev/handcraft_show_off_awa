@@ -7,7 +7,7 @@
 <div class="container">
   <div class="handcraft-info mt-3 p-1">
     <div class="handcraft-img">
-      <img src="{{ handcraft.image.url }}" alt="{{ handcraft.image_alt }}" class="handcraft-pic" />
+      <img src="{{ handcraft.image.url }}" alt="{{ handcraft.title }}" class="handcraft-pic" />
     </div>
     <div class="handcraft-detail">
       <h1 class="text-center p-3 d-flex justify-content-center align-items-center gap-2">{{ handcraft.title }}{% if user.is_authenticated %}
@@ -16,7 +16,7 @@
           {% csrf_token %}
 
           {% if is_favorite %}
-          <button type="submit" class="btn btn-link p-0 fs-1" title="Remove from favorites">❤️</button>
+          <button type="submit" class="btn btn-link p-0 fs-1" title="Remove from your favorites">❤️</button>
 
           {% else %}
           <button type="submit" class="btn btn-link p-0 fs-1" title="Add to favorites">🤍</button>
@@ -47,7 +47,7 @@
   <!-- Comment section -->
   <div class=" container comment-section">
     <div class="row">
-      <div class="col col-md-6">
+      <div class="col-12 col-md-6">
         <h2>Comments</h2>
         {% if comments %} {% for comment in comments %}
         <div class="comment">
@@ -73,7 +73,7 @@
         {% endif %}
       </div>
 
-      <div class="col col-md-6">
+      <div class="col-12 col-md-6">
         {% if user.is_authenticated %}
         <h2>Add a comment</h2>
         <form method="POST">

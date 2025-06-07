@@ -2,6 +2,8 @@
 
 @import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100..900;1,100..900&family=Tangerine:wght@400;700&display=swap');
 
+@import url('https://fonts.googleapis.com/css2?family=Felipa&display=swap');
+
 :root {
   /* Fonts */
   --title: 'Tangerine', serif;
@@ -35,7 +37,7 @@ body {
 
 h1, h2, h3, h4, h5, h6 {
   font-family: var(--title);
-  font-weight: 900;
+  font-weight: 400;
 }
 
 
@@ -53,19 +55,23 @@ main {
 
 .header-logo {
   font-family: var(--title);
-  font-weight: bolder;
-  font-size: 50px;
+  font-weight: bold;
+  font-size: 2.3rem;
+  text-align: center;
+  letter-spacing: 1.1px;
 }
 
 a.nav-link {
   color: var(--black);
+  font-family: var(--title);
+  font-size: 1.5rem;
+  letter-spacing: 2px;
 }
 
 .active {
   border-bottom: 2px solid var(--cerulean);
   font-weight: 600;
 }
-
 
 /* Footer */
 footer {

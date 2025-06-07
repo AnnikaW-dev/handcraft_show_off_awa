@@ -159,9 +159,9 @@ AUTH_PASSWORD_VALIDATORS = [
 
 # Account setup
 
-ACCOUNT_LOGIN_METHODS = {"username"}
+ACCOUNT_AUTHENTICATION_METHOD = "username"
 ACCOUNT_SIGNUP_FIELDS = ['email*', 'username*', 'password1*', 'password2*']
-ACCOUNT_EMAIL_VERIFCATION = 'none'
+ACCOUNT_EMAIL_VERIFICATION = 'none'
 ACCOUNT_USERNAME_MIN_LENGTH = 4
 LOGIN_URL = '/accounts/login/'
 LOGIN_REDIRECT_URL = '/'

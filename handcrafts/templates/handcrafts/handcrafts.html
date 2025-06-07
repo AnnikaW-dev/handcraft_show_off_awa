@@ -10,7 +10,7 @@
      <div class="filter-bar row justify-content-center">
         <form method="get">
             <label for="category">Category</label>
-            <select name="category" id="category" onchnage="this.formsubmit()">
+            <select name="category" id="category" onchange="this.formsubmit()">
                 <option value="">All</option>
                 {% for key, label in handcraft_types %}
                 <option value="{{ key}}"{% if current_category == key %}selected{% endif %}>
@@ -20,9 +20,9 @@
             </select>
 
             <label for="sort">Sort by:</label>
-            <select name="sort" id="soert">
-                <option value="created_on"{% if current_sort == 'created_on' %}selected{% endif %}>Newest</option>
-                <option value="title"{% if current_sort == 'title' %}selected{% endif %}>Title</option>
+            <select name="sort" id="sort">
+                <option value="created_on" {% if current_sort == 'created_on' %}selected{% endif %}>Newest</option>
+                <option value="title" {% if current_sort == 'title' %}selected{% endif %}>Title</option>
             </select>
 
             <select name="direction">

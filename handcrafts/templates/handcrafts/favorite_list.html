@@ -13,7 +13,7 @@
             <div class="card m-3" style="width: 18rem;">
 
                 {% if user.is_authenticated %}
-                <form action="{% url 'toggle_favorite' handcraft.slug %}" method="post"style="position: absolute; top: 10px; right: 10px; z-index: 10">
+                <form action="{% url 'toggle_favorite' handcraft.slug %}" method="post" style="position: absolute; top: 10px; right: 10px; z-index: 10">
 
                     {% csrf_token %}
 
