@@ -26,9 +26,35 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = os.environ.get("SECRET_KEY")
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
-ALLOWED_HOSTS = ['.herokuapp.com', '127.0.0.1']
+DEBUG = os.environ.get('DEBUG', 'False') == 'True'
 
+# Security settings only for production
+if not DEBUG:
+    SECURE_SSL_REDIRECT = True
+    SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
+    SECURE_HSTS_SECONDS = 31536000  # 1 year
+    SECURE_HSTS_INCLUDE_SUBDOMAINS = True
+    SECURE_HSTS_PRELOAD = True
+    SECURE_BROWSER_XSS_FILTER = True
+    SECURE_CONTENT_TYPE_NOSNIFF = True
+    X_FRAME_OPTIONS = 'DENY'
+
+# Content Security Policy
+CONTENT_SECURITY_POLICY = {
+    'DIRECTIVES': {
+        'default-src': ("'self'",),
+        'font-src': ("'self'", 'fonts.gstatic.com', 'fonts.googleapis.com'),
+        'img-src': ("'self'", 'data:', 'res.cloudinary.com'),
+        'script-src': ("'self'", 'cdn.jsdelivr.net'),
+        'style-src': ("'self'", "'unsafe-inline'", 'fonts.googleapis.com', 'cdn.jsdelivr.net')
+    }
+}
+
+# ALLOWED_HOSTS configuration
+if DEBUG:
+    ALLOWED_HOSTS = ['127.0.0.1', 'localhost']
+else:
+    ALLOWED_HOSTS = ['.herokuapp.com']
 
 # Application definition
 
@@ -46,7 +72,6 @@ INSTALLED_APPS = [
     # My Apps
     'comments',
     'handcrafts',
-    'users',
     'home',
 
     # Other
@@ -57,14 +82,16 @@ INSTALLED_APPS = [
     'django_summernote',
     'ckeditor',
     'ckeditor_uploader',
-
+    'csp',
 ]
 
 SITE_ID = 1
 
 MIDDLEWARE = [
+    'django.middleware.gzip.GZipMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'whitenoise.middleware.WhiteNoiseMiddleware',
+    'csp.middleware.CSPMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -159,7 +186,7 @@ AUTH_PASSWORD_VALIDATORS = [
 
 # Account setup
 
-ACCOUNT_AUTHENTICATION_METHOD = "username"
+ACCOUNT_LOGIN_METHODS = {'username'}
 ACCOUNT_SIGNUP_FIELDS = ['email*', 'username*', 'password1*', 'password2*']
 ACCOUNT_EMAIL_VERIFICATION = 'none'
 ACCOUNT_USERNAME_MIN_LENGTH = 4
@@ -208,3 +235,4 @@ CLOUDINARY_STORAGE = {
 DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
 
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+WHITENOISE_MAX_AGE = 31536000  # 1 year

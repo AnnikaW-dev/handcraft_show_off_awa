@@ -1,319 +1,316 @@
-/* Imports & Root variables */
+@import url(https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100..900;1,100..900&family=Tangerine:wght@400;700&display=swap);
+@import url(https://fonts.googleapis.com/css2?family=Felipa&display=swap);
 
-@import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100..900;1,100..900&family=Tangerine:wght@400;700&display=swap');
-
-@import url('https://fonts.googleapis.com/css2?family=Felipa&display=swap');
-
-:root {
-  /* Fonts */
-  --title: 'Tangerine', serif;
-  --main: 'Roboto', serif;
-
-  /* Colours */
---cerulean: #227c9dff;
---light-sea-green: #17c3b2ff;
---sunset: #ffcb77ff;
---light-pink: rgba(253, 233, 221, 0.993);
---light-red: #fe6d73ff;
---black: #000;
-
-  /* Utils */
-  --small-box-shadow: 1px 4px 7px 0 #00000061;
-  --border: 1px solid #00000030;
+.oval-box,
+body {
+    flex-direction: column
 }
 
-/* Global styles(html, body, typography) */
+.navbar,
+body {
+    background-color: var(--light-red)
+}
 
-html, body {
-  height: 100%;
+body,
+footer {
+    display: flex
+}
+
+.my-form,
+.navbar,
+.oval-box {
+    box-shadow: var(--small-box-shadow)
+}
+
+.btn-link,
+.handcrafts,
+.handcrafts:hover {
+    text-decoration: none
+}
+
+.filter-bar,
+.header-logo,
+.oval-box {
+    text-align: center
+}
+
+:root {
+    --title: 'Tangerine', serif;
+    --main: 'Roboto', serif;
+    --cerulean: #227c9dff;
+    --light-sea-green: #17c3b2ff;
+    --sunset: #ffcb77ff;
+    --light-pink: rgba(253, 233, 221, 0.993);
+    --light-red: #fe6d73ff;
+    --black: #000;
+    --small-box-shadow: 1px 4px 7px 0 #00000061;
+    --border: 1px solid #00000030
+}
+
+body,
+html {
+    height: 100%
 }
 
 body {
-  background-color: var(--light-red);
-  display: flex;
-  flex-direction: column;
-  font-family: var(--main);
+    font-family: var(--main)
 }
 
-h1, h2, h3, h4, h5, h6 {
-  font-family: var(--title);
-  font-weight: 400;
+.header-logo,
+a.nav-link,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    font-family: var(--title)
 }
 
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    font-weight: 400
+}
 
-
-/* Layout containers */
 main {
-  flex: 1 0 auto;
-}
-
-/*Header & Navigation */
-.navbar {
-  background-color: var(--light-red);
-  box-shadow: var(--small-box-shadow);
+    flex: 1 0 auto
 }
 
 .header-logo {
-  font-family: var(--title);
-  font-weight: bold;
-  font-size: 2.3rem;
-  text-align: center;
-  letter-spacing: 1.1px;
+    font-weight: 700;
+    font-size: 2.3rem;
+    letter-spacing: 1.1px
 }
 
 a.nav-link {
-  color: var(--black);
-  font-family: var(--title);
-  font-size: 1.5rem;
-  letter-spacing: 2px;
+    color: var(--black);
+    font-size: 1.5rem;
+    letter-spacing: 2px
 }
 
 .active {
-  border-bottom: 2px solid var(--cerulean);
-  font-weight: 600;
+    border-bottom: 2px solid var(--cerulean);
+    font-weight: 600
 }
 
-/* Footer */
 footer {
-  flex-shrink: 0;
-  background-color: var(--sunset);
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-  align-items: center;
-  border-top: var(--border);
+    flex-shrink: 0;
+    background-color: var(--sunset);
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    border-top: var(--border)
 }
 
 .social-icon {
-  height: 2rem;
-  margin: 1rem;
+    height: 2rem;
+    margin: 1rem
 }
 
-/*Forms */
 .my-form {
-  background-color: var(--light-pink);
-  width: 100%;
-  margin: 3% auto;
-  box-shadow: var(--small-box-shadow);
-  border-radius: 5px;
+    background-color: var(--light-pink);
+    width: 100%;
+    margin: 3% auto;
+    border-radius: 5px
 }
 
-/* Layout for error pages */
-.error-pages {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  margin: 1rem 0;
-  padding: 1rem;
-  background-image: url("/static/images/errorimage3.webp");
-  background-size: cover;
-  background-position: center center;
-  background-repeat: no-repeat;
-  min-height: 500px;
-  position: relative;
-}
-
-/* Layout boxes & Wrappers */
+.error-pages,
 .oval-wrapper {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  margin: 1rem 0;
-  padding: 1rem;
-  background-image: url("/static/images/handcrafts1.webp");
-  background-size: cover;
-  background-position: center center;
-  background-repeat: no-repeat;
-  min-height: 500px;
-  position: relative;
+    margin: 1rem 0;
+    padding: 1rem;
+    background-size: cover;
+    background-position: center center;
+    background-repeat: no-repeat;
+    min-height: 500px;
+    display: flex;
+    position: relative
+}
+
+.error-pages {
+    justify-content: center;
+    align-items: center;
+    background-image: url("/static/images/errorimage3.webp")
+}
+
+.oval-wrapper {
+    justify-content: center;
+    align-items: center;
+    background-image: url("/static/images/handcrafts1.webp")
 }
 
 .oval-box {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  background-color: rgba(253, 233, 221, 0.85);
-  width: 80%;
-  padding: 2rem 3rem;
-  border-radius: 50%;
-  box-shadow: var(--small-box-shadow);
-  text-align: center;
-  max-width: 900px;
+    display: flex;
+    align-items: center;
+    background-color: rgba(253, 233, 221, .85);
+    width: 80%;
+    padding: 2rem 3rem;
+    border-radius: 50%;
+    max-width: 900px
 }
 
-/* Typography & Titles */
+.card,
+.handcraft-info {
+    flex-direction: column
+}
+
 .titel {
-  font-size: clamp(1.2rem, 4vw, 1.8rem);
-  margin-bottom: 0.5rem;
-  word-break: break-word;
-  text-wrap: balance;
-  margin-top: 1.5rem;
+    font-size: clamp(1.2rem, 4vw, 1.8rem);
+    margin-bottom: .5rem;
+    word-break: break-word;
+    text-wrap: balance;
+    margin-top: 1.5rem
 }
 
-/* Handcrafts List view */
 .card {
-  height: 580px;
-  margin-top: 0.5rem;
-  transition: transform 0.3s ease, box-hadow 0.3s ease;
-  display: flex;
-  flex-direction: column;
+    height: 580px;
+    margin-top: .5rem;
+    transition: transform .3s, box-hadow .3s;
+    display: flex
 }
 
 .card-body {
-  flex-grow: 1;
-  display: flex;
-  flex-direction: column;
-  padding: 0.5rem;
-
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    padding: .5rem
 }
 
 .card-body p:empty {
-  display: none;
+    display: none
 }
 
 .card-title {
-  font-size: 2rem;
-  margin-bottom: 0;
-  line-height: 0.9;
-  height: 57.6px;
+    font-size: 2rem;
+    margin-bottom: 0;
+    line-height: .9;
+    height: 57.6px
 }
 
 .card-text {
-  height: 64.8px;
-  display: -webkit-box;
-  -webkit-line-clamp: 3;
-  -webkit-box-orient: vertical;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  font-size: 0.9rem;
-  line-height: 1.5;
+    height: 64.8px;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    font-size: .9rem;
+    line-height: 1.5
 }
 
 .handcrafts {
-  text-decoration: none;
-  color: var(--black);
+    color: var(--black)
 }
 
 .handcrafts:hover {
-  cursor: pointer;
-  text-decoration: none;
-  color: var(--black);
+    cursor: pointer;
+    color: var(--black)
 }
 
 .handcrafts:hover .card {
-  transform: translateY(-5px);
-  box-shadow: 2px 8px 15px 0 #00000040;
+    transform: translateY(-5px);
+    box-shadow: 2px 8px 15px 0 #00000040
 }
 
-.btn-link {
-  text-decoration: none;
-}
-
-/* Thumbnail styling for list view */
 .handcraft-thumbnail {
-  width: 100%;
-  height: 386px;
-  object-fit: cover;
-  border-radius: 5px 5px 0 0;
+    width: 100%;
+    height: 386px;
+    object-fit: cover;
+    border-radius: 5px 5px 0 0
 }
 
-.card-img-placeholder, .no-image-placeholder {
-  width: 100%;
-  height: 386px;
-  background-color: var(--floral-white);
-  border: var(--border);
-  border-radius: 5px 5px 0 0;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+.card-img-placeholder,
+.no-image-placeholder {
+    width: 100%;
+    height: 386px;
+    background-color: var(--floral-white);
+    border: var(--border);
+    border-radius: 5px 5px 0 0;
+    display: flex;
+    align-items: center;
+    justify-content: center
 }
 
-.card-img-placeholder p, .no-image-placeholder p {
-  color: var(--black);
-  opacity: 0.6;
-  margin: 0;
+.card-img-placeholder p,
+.no-image-placeholder p {
+    color: var(--black);
+    opacity: .6;
+    margin: 0
 }
 
-/* Handcraft Detail View */
 .handcraft-info {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
+    display: flex;
+    justify-content: center
 }
 
 .handcraft-container {
-  display: flex;
-  flex-direction: column;
+    display: flex;
+    flex-direction: column
 }
 
 .handcraft-content {
-  width: 100%;
+    width: 100%
 }
 
 .post-img {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  margin-bottom: 2rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 2rem
 }
 
 .handcraft-pic {
-  width: 100%;
-  max-width: 600px;
-  height: auto;
-  max-height: 500px;
-  object-fit: contain;
-  border-radius: 5px;
-  display: block;
-  margin: 0 auto;
+    width: 100%;
+    max-width: 600px;
+    height: auto;
+    max-height: 500px;
+    object-fit: contain;
+    border-radius: 5px;
+    display: block;
+    margin: 0 auto
 }
 
-/* Filter bar*/
 .filter-bar {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  gap: 10px;
-  padding: 1rem;
-  background-color: var(--sunset);
-  border-radius: 10px;
-  margin: 0 auto 20px auto;
-  max-width: 600px;
-  text-align: center;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 10px;
+    padding: 1rem;
+    background-color: var(--sunset);
+    border-radius: 10px;
+    margin: 0 auto 20px;
+    max-width: 600px
 }
 
-.filter-bar select,
-.filter-bar button {
-  padding: 5px 10px;
-  border-radius: 6px;
-  border: 1px solid #ccc;
-  font-size: 14px;
+.filter-bar button,
+.filter-bar select {
+    padding: 5px 10px;
+    border-radius: 6px;
+    border: 1px solid #ccc;
+    font-size: 14px
 }
 
-/* Other specific styles */
 .handcraft-img {
-  position: relative;
+    position: relative
 }
 
-/* Responsive Adjustments */
-@media screen and (min-width: 770px) {
-  .card {
-    height: 580px; /* Slightly taller on larger screens */
-  }
+@media screen and (min-width:770px) {
+    .card {
+        height: 580px
+    }
 
-  .handcraft-thumbnail {
-    height: 386px;
-  }
-
-  .card-img-placeholder, .no-image-placeholder {
-    height: 386px;
-  }
-
+    .card-img-placeholder,
+    .handcraft-thumbnail,
+    .no-image-placeholder {
+        height: 386px
+    }
 }
 
-/* Additional responsive breakpoints */
-@media screen and (min-width: 1200px) {
-  .handcraft-thumbnail {
-    height: 350px;
-  }
+@media screen and (min-width:1200px) {
+    .handcraft-thumbnail {
+        height: 350px
+    }
 }
