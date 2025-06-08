@@ -27,10 +27,10 @@
                 {% endif %}
 
                 {% if handcraft.get_thumbnail_url %}
-                <img src="{{ handcraft.get_thumbnail_url }}" class="card-img-top handcraft-thumbnail" alt="{{ handcraft.title }}">
+                <img src="{{ handcraft.get_thumbnail_url|default:handcraft.image.url }}" class="card-img-top handcraft-thumbnail" alt="{{ handcraft.title }}">
 
                 {% elif handcraft.image and handcraft.image != "placeholder" %}
-                    <img src="{{ handcraft.image.url }}"  class="card-img-top handcraft-thumbnail" alt="{{ handcraft.title }}">
+                    <img src="{{ handcraft.image.url|default:handcraft.image.url }}"  class="card-img-top handcraft-thumbnail" alt="{{ handcraft.title }}">
 
                 {% else %}
                 <p>Ingen bild tillgänglig</p>

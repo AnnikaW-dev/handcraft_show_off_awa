@@ -1,4 +1,5 @@
 from django import forms
+from django.forms import HiddenInput
 from .models import Post, Comment
 
 
@@ -11,13 +12,16 @@ class Handcraftform(forms.ModelForm):
         model = Post
         fields = [
             "title",
-            "slug",
             "content",
             "excerpt",
             "image",
             "handcraft_type",
             "image",
         ]
+
+        widgets = {
+            "slug": HiddenInput(),
+        }
 
         labels = {
             "title": "Handcraft Title",

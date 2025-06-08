@@ -36,7 +36,7 @@ class Post(models.Model):
     status = models.IntegerField(choices=STATUS, default=0)
     excerpt = RichTextField(blank=True)
     updated_on = models.DateTimeField(auto_now=True)
-    image = CloudinaryField("image", default="placeholder")
+    image = CloudinaryField("image", default="handcrafts_defaults/default_sewing_card")
     thumbnail = CloudinaryField("thumbnail", blank=True, null=True)
     image_alt = models.CharField(max_length=200, blank=False)
     handcraft_type = models.CharField(
