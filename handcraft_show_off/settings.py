@@ -27,7 +27,7 @@ SECRET_KEY = os.environ.get("SECRET_KEY")
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
-ALLOWED_HOSTS = ['.herokuapp.com', '127.0.0.1']
+ALLOWED_HOSTS = ['.herokuapp.com', '127.0.0.1', 'localhost']
 
 
 # Application definition
@@ -160,12 +160,18 @@ AUTH_PASSWORD_VALIDATORS = [
 # Account setup
 
 ACCOUNT_AUTHENTICATION_METHOD = "username"
-ACCOUNT_SIGNUP_FIELDS = ['email*', 'username*', 'password1*', 'password2*']
+ACCOUNT_EMAIL_REQUIRED = True
+ACCOUNT_USERNAME_REQUIRED = True
 ACCOUNT_EMAIL_VERIFICATION = 'none'
 ACCOUNT_USERNAME_MIN_LENGTH = 4
 LOGIN_URL = '/accounts/login/'
 LOGIN_REDIRECT_URL = '/'
 
+
+ACCOUNT_FORMS = {
+    'signup': 'allauth.account.forms.SignupForm',
+}
+ACCOUNT_SIGNUP_PASSWORD_ENTER_TWICE = True
 
 # Internationalization
 # https://docs.djangoproject.com/en/5.2/topics/i18n/
