@@ -1,7 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import User
 from django.utils.text import slugify
-
+from django.conf import settings
 
 from cloudinary.models import CloudinaryField
 from ckeditor.fields import RichTextField
@@ -38,13 +38,26 @@ class Post(models.Model):
     updated_on = models.DateTimeField(auto_now=True)
     image = CloudinaryField(
         "image",
-        default="handcrafts_defaults/default_sewing_card"
+        default="handcrafts_defaults/default_sewing_card.webp"
     )
     thumbnail = CloudinaryField("thumbnail", blank=True, null=True)
     image_alt = models.CharField(max_length=200, blank=False)
     handcraft_type = models.CharField(
         max_length=50, choices=HANDCRAFT_TYPES, default="knitting"
     )
+
+    def get_image_url(self):
+        """Return image URL or default image for both local and Cloudinary"""
+        if self.image:
+            return self.image.url
+
+        # Check if we're using Cloudinary (production) or local (development)
+        if hasattr(settings, 'CLOUDINARY_STORAGE') and settings.CLOUDINARY_STORAGE:
+            # Return Cloudinary default image URL
+            return 'https://res.cloudinary.com/do0tj36bv/image/upload/v1749328570/handcrafts_defaults/default_handcraft'
+        else:
+            # Return local static default image
+            return f'{settings.STATIC_URL}images/default_sewing_card.webp'
 
     class Meta:
         ordering = ["-created_on"]
